@@ -7,7 +7,7 @@ Refer to *install.txt* for the list of required packages.
 Source Excel file has to have **Title** and **Description** columns on each sheet.
 Sheets not passing the check will be skipped by the builder.
 
-Run *cardbuilder.py* with options:
+Run *deckbuilder.py* with options:
 
 **-s, --source:** Excel source file. **Mandatory**
 
