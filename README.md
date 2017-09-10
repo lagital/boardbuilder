@@ -15,7 +15,7 @@ Run *deckbuilder.py* with options:
  
 **-f, --format:** pdf. **Default:** pdf. **TBD**
  
-**-t, --tabletop:** Export for Tabletop Simulator **TBD**
+**-t, --tabletop:** Export for Tabletop Simulator - True/False. **Default:** False. **TBD**
 
 # Customization
 It is possible to customize card Title and Description generation using **cust/cust_title.py** and **cust/cust_description.py files** respectively.
