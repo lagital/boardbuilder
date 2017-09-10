@@ -1,4 +1,4 @@
-# boardbuilder
+# deckbuilder
 
 # Installation
 Refer to *install.txt* for the list of required packages.
