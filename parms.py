@@ -16,6 +16,7 @@ def COLUMN_COUNT():           return "Count"
 # directories
 DIR_OUTPUT                    = os.getcwd()
 
+def DIR_PAGES():              return "pages"
 def DIR_PRINT():              return "print"
 def DIR_TABLETOP():           return "tabletop"
 
@@ -24,6 +25,7 @@ FILE_SOURCE                   = "dummy"
 
 def FILE_TABLETOP_TEMPLATE(): return "template"
 def FILE_TABLETOP_DECK():     return "deck_"
+def FILE_PAGE():              return "page_"
 
 
 # formats
@@ -47,3 +49,7 @@ def DIM_TEXT_WIDTH():         return 100
 def DIM_TEXT_HEIGHT():        return 40
 def DIM_TEXT_LEFT_MARGIN():   return 20
 def DIM_TEXT_TOP_MARGIN():    return 20
+
+# printing
+def CARDS_IN_ROW():           return 3
+def CARDS_IN_COLUMN():        return 3

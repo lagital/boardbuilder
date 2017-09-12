@@ -4,6 +4,7 @@ import pandas as pd
 import textwrap
 import os
 from PIL import Image, ImageDraw
+from fpdf import FPDF
 from pathlib import Path
 from Card import Card
 from cust import cust_title
@@ -26,6 +27,8 @@ def build():
     parser.add_argument('-f', "--format", type=str, action='store', dest='format', help='Only PDF for now')
     parser.add_argument('-t', "--tabletop", type=bool, action='store', dest='tabletop',
                         help='Export for Tabletop Simulator')
+    parser.add_argument('-p', "--print", type=bool, action='store', dest='print',
+                        help='Print generated files')
     args = parser.parse_args()
 
     # redefine global parameters
@@ -151,17 +154,66 @@ def generate_card_image(title, description):
 
 
 def save_sheet(sheet_title, deck):
-    directory = parms.DIR_OUTPUT + "/" + sheet_title
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    main_directory = generate_sheet_directories(sheet_title)
 
-    for card in deck:
-        for i in range(card.count):
-            card.image.save(directory + "/"
-                            + card.title.replace(" ", "_") + "_" + str(i)
-                            + "." + parms.EXT_PNG(), parms.EXT_PNG())
+    pdf = None
+
+    if parms.FORMAT == parms.FORMAT_PDF():
+        pdf = FPDF()
+
+    card_paths = []
+    card_count = 0
+    for c in deck:
+        card_count += c.count
+
+    for i, card in enumerate(deck):
+        for j in range(card.count):
+            card_count += 1
+
+            # separate images
+            card_path = main_directory + "/" + card.title.replace(" ", "_") + "_" + str(j) + "." + parms.EXT_PNG()
+            card_paths.append(card_path)
+            card.image.save(card_path, parms.EXT_PNG())
+
+            # one page constructed
+            print(i % (parms.CARDS_IN_ROW() * parms.CARDS_IN_COLUMN()) == 0)
+            if i % (parms.CARDS_IN_ROW() * parms.CARDS_IN_COLUMN()) == 0 and i != 0:
+                sheet_page_image = Image.new('RGB', (parms.DIM_CARD_WIDTH() * parms.CARDS_IN_ROW(),
+                                                     parms.DIM_CARD_HEIGHT() * parms.CARDS_IN_COLUMN()))
+                x_offset = 0
+                for img in map(Image.open, card_paths):
+                    sheet_page_image.paste(img, (x_offset, 0))
+                    x_offset += img.size[0]
+
+                sheet_page_image_path = main_directory + "/" + parms.DIR_PAGES() + "/"\
+                                        + parms.FILE_PAGE() + i / (parms.CARDS_IN_ROW() * parms.CARDS_IN_COLUMN())\
+                                        + "." +  parms.EXT_PNG()
+                print(sheet_page_image_path)
+                sheet_page_image.save(sheet_page_image_path)
+
+                # pdf
+                if parms.FORMAT == parms.FORMAT_PDF():
+                    pdf.add_page()
+                    pdf.image(open(sheet_page_image_path, 'r'), x = 0, y = 0)
+
+                card_paths = []
+
+    if parms.FORMAT == parms.FORMAT_PDF():
+        pdf.output(main_directory + "/" + sheet_title.replace(" ", "_") + "." + parms.FORMAT_PDF(), "F")
 
     print('"' + sheet_title + '"', "finished.")
+
+
+def generate_sheet_directories(sheet_title):
+    main_directory = parms.DIR_OUTPUT + "/" + sheet_title
+    if not os.path.exists(main_directory):
+        os.makedirs(main_directory)
+    for d in [parms.DIR_PAGES(), parms.DIR_PRINT(), parms.DIR_TABLETOP()]:
+        directory = main_directory + "/" + d
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+    return main_directory
 
 
 def card_included(sheet_title, card_title):

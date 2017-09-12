@@ -1,3 +1,4 @@
 pip3 install pandas
 pip3 install argparse
 pip3 install Pillow
+pip3 install fpdf
