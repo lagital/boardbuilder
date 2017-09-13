@@ -220,7 +220,7 @@ def save_sheet(sheet_title, deck):
                         + "." + parms.FORMAT_PDF()
         pdf.output(printing_file, "F")
 
-    if parms.PRINT is not None:
+    if parms.PRINT is True:
         print_sheet(printing_file)
 
     print('"' + sheet_title + '"', "finished.")
