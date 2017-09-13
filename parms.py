@@ -43,13 +43,18 @@ def EXT_CSV():                return "csv"
 def EXT_PNG():                return "png"
 
 # dimensions
-def DIM_CARD_WIDTH():         return 222
-def DIM_CARD_HEIGHT():        return 319
+def DIM_CARD_WIDTH():         return 200
+def DIM_CARD_HEIGHT():        return 289
 def DIM_TEXT_WIDTH():         return 100
-def DIM_TEXT_HEIGHT():        return 40
-def DIM_TEXT_LEFT_MARGIN():   return 20
+def DIM_TEXT_HEIGHT():        return 10
+def DIM_CHAR_WIDTH():         return 7
 def DIM_TEXT_TOP_MARGIN():    return 20
+def DIM_TEXT_LEFT_MARGIN():   return 20
+def DIM_PDF_TOP_MARGIN():     return 5
+def DIM_PDF_LEFT_MARGIN():    return 5
 
 # printing
+PRINT                         = False
+
 def CARDS_IN_ROW():           return 3
 def CARDS_IN_COLUMN():        return 3
