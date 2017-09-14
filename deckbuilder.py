@@ -5,7 +5,7 @@ import textwrap
 import os
 import subprocess
 import sys
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageColor
 from fpdf import FPDF
 from pathlib import Path
 from Card import Card
@@ -188,14 +188,9 @@ def save_sheet(sheet_title, deck):
             if (card_total_count - card_counter) % (parms.CARDS_IN_ROW() * parms.CARDS_IN_COLUMN()) == 0:
                 print("Page added", card_total_count - card_counter)
                 sheet_page_image = Image.new('RGB', (parms.DIM_CARD_WIDTH() * parms.CARDS_IN_ROW(),
-                                                     parms.DIM_CARD_HEIGHT() * parms.CARDS_IN_COLUMN()))
+                                                     parms.DIM_CARD_HEIGHT() * parms.CARDS_IN_COLUMN()),
+                                             (255,255,255,0))
                 x_offset = 0
-                y_offset = 0
-                #for im in map(Image.open, card_paths):
-                #    sheet_page_image.paste(im, (x_offset, y_offset))
-                #    x_offset += im.size[0]
-                #    y_offset += im.size[1]
-
                 for k, img in enumerate(map(Image.open, card_paths)):
                     sheet_page_image.paste(img, ((k % parms.CARDS_IN_ROW()) * img.size[0],
                                                  (k // parms.CARDS_IN_COLUMN()) * img.size[1]))
