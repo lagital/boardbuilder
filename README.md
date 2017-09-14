@@ -12,7 +12,7 @@ Run *deckbuilder.py* with options:
 
 **-o, --output:** Output folder. **Default:** execution directory.
  
-**-f, --format:** pdf. **Default:** pdf.
+**-f, --format:** Output document format. **Default:** pdf.
  
 **-t, --tabletop:** Export for Tabletop Simulator - True/False. **Default:** False. **TBD**
 
