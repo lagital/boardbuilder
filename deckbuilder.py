@@ -157,8 +157,17 @@ def generate_card_image(title, description):
         draw.text((parms.DIM_TEXT_LEFT_MARGIN(), y_text), line, fill=(0, 0, 0))
         y_text += parms.DIM_TEXT_HEIGHT()
 
+    # border
+    img = apply_card_border(img)
+
     return img
 
+def apply_card_border(img):
+    new_size = (img.size[0] + parms.DIM_CARD_BORDER() * 2, img.size[1] + parms.DIM_CARD_BORDER() * 2)
+    bordered_img = Image.new("RGB", new_size)
+    bordered_img.paste(img, (parms.DIM_CARD_BORDER(), parms.DIM_CARD_BORDER()))
+
+    return bordered_img
 
 def save_sheet(sheet_title, deck):
     main_directory = generate_sheet_directories(sheet_title)
@@ -187,8 +196,9 @@ def save_sheet(sheet_title, deck):
             # combine in one page
             if (card_total_count - card_counter) % (parms.CARDS_IN_ROW() * parms.CARDS_IN_COLUMN()) == 0:
                 print("Page added", card_total_count - card_counter)
-                sheet_page_image = Image.new('RGB', (parms.DIM_CARD_WIDTH() * parms.CARDS_IN_ROW(),
-                                                     parms.DIM_CARD_HEIGHT() * parms.CARDS_IN_COLUMN()),
+                sheet_page_image = Image.new('RGB',
+                                             (parms.CARDS_IN_ROW() * (parms.DIM_CARD_WIDTH() + parms.DIM_CARD_BORDER() * 2),
+                                              parms.CARDS_IN_COLUMN() * (parms.DIM_CARD_HEIGHT() + parms.DIM_CARD_BORDER() * 2 )),
                                              (255,255,255,0))
                 x_offset = 0
                 for k, img in enumerate(map(Image.open, card_paths)):

@@ -2,7 +2,7 @@ import os
 
 
 # card generation mask
-def MASKS():                  return "Example.Card 1,Example.Card 2,Example2.*"
+def MASKS():                  return "Example2.*,Example.Jon Snow,Example.Daenerys"
 def MASK_SEPARATOR():         return ","
 def MASK_DOT():               return "."
 def MASK_ALL():               return "*"
@@ -43,8 +43,9 @@ def EXT_CSV():                return "csv"
 def EXT_PNG():                return "png"
 
 # dimensions
-def DIM_CARD_WIDTH():         return 200
+def DIM_CARD_WIDTH():         return 190
 def DIM_CARD_HEIGHT():        return 289
+def DIM_CARD_BORDER():        return 1
 def DIM_TEXT_WIDTH():         return 100
 def DIM_TEXT_HEIGHT():        return 10
 def DIM_CHAR_WIDTH():         return 7
