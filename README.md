@@ -8,7 +8,7 @@ PDF output file: https://github.com/lagital/deckbuilder/blob/master/example/Exam
 
 It has been constructed using this Excel workbook: https://github.com/lagital/deckbuilder/blob/master/example/Example.xlsx
 
-And using this parameters: https://github.com/lagital/deckbuilder/blob/master/example/parms.py
+And using these parameters: https://github.com/lagital/deckbuilder/blob/master/example/parms.py
 # Installation
 Refer to *install.txt* for the list of required Python packages.
 # Usage
