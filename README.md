@@ -1,4 +1,5 @@
 # deckbuilder
+Card pictures generating and printing tool. Accepts Excel file as a source and produces a deck of cards for each Excel sheet inside. Good for card game playtests and card proxies.
 # Installation
 Refer to *install.txt* for the list of required packages.
 # Usage
