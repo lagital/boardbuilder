@@ -13,11 +13,11 @@ Run *deckbuilder.py* with options:
 
 **-o, --output:** Output folder. **Default:** execution directory.
  
-**-f, --format:** pdf. **Default:** pdf. **TBD**
+**-f, --format:** pdf. **Default:** pdf.
  
 **-t, --tabletop:** Export for Tabletop Simulator - True/False. **Default:** False. **TBD**
 
-**-p, --print:** Print cards on default printer - True/False. **Default:** False. **TBD**
+**-p, --print:** Print cards on default printer - True/False. **Default:** False.
 
 # Configuration
 
