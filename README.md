@@ -1,7 +1,7 @@
 # deckbuilder
 Card pictures generating and printing tool. Accepts Excel file as a source and produces a deck of cards for each Excel sheet inside. Good for card game playtests and card proxies.
 # Installation
-Refer to *install.txt* for the list of required packages.
+Refer to *install.txt* for the list of required Python packages.
 # Usage
 Source Excel file has to have **Title** and **Description** columns on each sheet.
 Sheets not passing the check will be skipped by the builder.
