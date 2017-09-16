@@ -4,7 +4,11 @@ Card pictures generating and printing tool. Accepts Excel file as a source and p
 **No ponies, no dragons**: the tool doesn't support card illustrations.
 Life shows that text presence is much more important. Especially for tests.
 # Generation Example
-https://github.com/lagital/deckbuilder/blob/master/examples/Example.pdf
+PDF output file: https://github.com/lagital/deckbuilder/blob/master/example/Example/print/Example.pdf
+
+It has been constructed using this Excel workbook: https://github.com/lagital/deckbuilder/blob/master/example/Example.xlsx
+
+And using these parameters: https://github.com/lagital/deckbuilder/blob/master/example/parms.py
 # Installation
 Refer to *install.txt* for the list of required Python packages.
 # Usage
