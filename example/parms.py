@@ -2,7 +2,7 @@ import os
 
 
 # card generation mask
-def MASKS():                  return "Example2.*,Example.Jon Snow,Example.Daenerys"
+def MASKS():                  return "Находки.*,События.*"
 def MASK_SEPARATOR():         return ","
 def MASK_DOT():               return "."
 def MASK_ALL():               return "*"

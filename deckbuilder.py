@@ -5,7 +5,7 @@ import textwrap
 import os
 import subprocess
 import sys
-from PIL import Image, ImageDraw, ImageColor
+from PIL import Image, ImageDraw, ImageFont
 from fpdf import FPDF
 from pathlib import Path
 from Card import Card
@@ -119,7 +119,7 @@ def process_sheet(sheet, sheet_title):
     if parms.COLUMN_COUNT() not in sheet.keys():
         print("WARNING:", parms.COLUMN_COUNT(), "column not defined on sheet", sheet_title + ".",
               "Generating one copy for each card")
-        CommonCount = 1
+        sheet["Count"] = pd.Series(1, index=sheet.index)
 
     for index, row in sheet.iterrows():
 
@@ -128,7 +128,7 @@ def process_sheet(sheet, sheet_title):
         if card_included(sheet_title, card_title):
             card_description = cust_description.do(row, sheet_title, row[parms.COLUMN_DESCRIPTION()])
             card_image = generate_card_image(card_title, card_description)
-            card_count = nvl(CommonCount, row[parms.COLUMN_COUNT()])
+            card_count = row[parms.COLUMN_COUNT()]
 
             card = Card(card_title, card_description, card_image, card_count)
             deck.append(card)
@@ -144,7 +144,8 @@ def generate_card_image(title, description):
     draw = ImageDraw.Draw(img)
 
     # draw title
-    draw.text((parms.DIM_TEXT_LEFT_MARGIN(), parms.DIM_TEXT_TOP_MARGIN()), title, fill=(0, 0, 0))
+    unicode_font = ImageFont.truetype("Arial.ttf")
+    draw.text((parms.DIM_TEXT_LEFT_MARGIN(), parms.DIM_TEXT_TOP_MARGIN()), title, fill=(0, 0, 0), font=unicode_font)
 
     # draw description
     lines = textwrap.wrap(description, width=parms.DIM_CARD_WIDTH() // parms.DIM_CHAR_WIDTH())
@@ -154,7 +155,7 @@ def generate_card_image(title, description):
 
     # writing
     for line in lines:
-        draw.text((parms.DIM_TEXT_LEFT_MARGIN(), y_text), line, fill=(0, 0, 0))
+        draw.text((parms.DIM_TEXT_LEFT_MARGIN(), y_text), line, fill=(0, 0, 0), font=unicode_font)
         y_text += parms.DIM_TEXT_HEIGHT()
 
     # border
