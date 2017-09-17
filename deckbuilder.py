@@ -108,7 +108,6 @@ def process_sheets():
 def process_sheet(sheet, sheet_title):
     print("Processing", '"' + sheet_title + '"', "...")
 
-    CommonCount = None
     deck = []
 
     if parms.COLUMN_TITLE() not in sheet.keys() or parms.COLUMN_DESCRIPTION() not in sheet.keys():
@@ -145,23 +144,31 @@ def generate_card_image(title, description):
 
     # draw title
     unicode_font = ImageFont.truetype("Arial.ttf")
-    draw.text((parms.DIM_TEXT_LEFT_MARGIN(), parms.DIM_TEXT_TOP_MARGIN()), title, fill=(0, 0, 0), font=unicode_font)
-
-    # draw description
-    lines = textwrap.wrap(description, width=parms.DIM_CARD_WIDTH() // parms.DIM_CHAR_WIDTH())
+    y_text = draw_lines(draw, unicode_font, title, parms.DIM_TEXT_TOP_MARGIN())
 
     # space between title and description
-    y_text = parms.DIM_TEXT_TOP_MARGIN() + parms.DIM_TEXT_HEIGHT() + parms.DIM_TEXT_TOP_MARGIN()
+    y_text += parms.DIM_TEXT_TOP_MARGIN()
 
-    # writing
-    for line in lines:
-        draw.text((parms.DIM_TEXT_LEFT_MARGIN(), y_text), line, fill=(0, 0, 0), font=unicode_font)
-        y_text += parms.DIM_TEXT_HEIGHT()
+    # draw description
+    for p in str.split(description, "\p"):
+        for n in str.split(p, "\\n"):
+            y_text = draw_lines(draw, unicode_font, n, y_text)
+
+        y_text += parms.DIM_TEXT_TOP_MARGIN()
 
     # border
     img = apply_card_border(img)
 
     return img
+
+
+def draw_lines(draw, font, text, y_text):
+    lines = textwrap.wrap(text, width=(parms.DIM_CARD_WIDTH() // parms.DIM_CHAR_WIDTH()))
+    for line in lines:
+        draw.text((parms.DIM_TEXT_LEFT_MARGIN(), y_text), line, fill=(0, 0, 0), font=font)
+        y_text += parms.DIM_TEXT_HEIGHT()
+    return y_text
+
 
 def apply_card_border(img):
     new_size = (img.size[0] + parms.DIM_CARD_BORDER() * 2, img.size[1] + parms.DIM_CARD_BORDER() * 2)
@@ -169,6 +176,7 @@ def apply_card_border(img):
     bordered_img.paste(img, (parms.DIM_CARD_BORDER(), parms.DIM_CARD_BORDER()))
 
     return bordered_img
+
 
 def save_sheet(sheet_title, deck):
     main_directory = generate_sheet_directories(sheet_title)

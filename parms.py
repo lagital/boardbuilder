@@ -49,7 +49,7 @@ def DIM_CARD_BORDER():        return 1
 def DIM_TEXT_WIDTH():         return 100
 def DIM_TEXT_HEIGHT():        return 10
 def DIM_CHAR_WIDTH():         return 7
-def DIM_TEXT_TOP_MARGIN():    return 20
+def DIM_TEXT_TOP_MARGIN():    return 10
 def DIM_TEXT_LEFT_MARGIN():   return 20
 def DIM_PDF_TOP_MARGIN():     return 8
 def DIM_PDF_LEFT_MARGIN():    return 8
