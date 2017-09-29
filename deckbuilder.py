@@ -151,7 +151,8 @@ def generate_card_image(title, description):
 
     # draw description
     for p in str.split(description, "\p"):
-        for n in str.split(p, "\\n"):
+        for n in str.split(p, "\n"):
+            print("splitted sentence", n)
             y_text = draw_lines(draw, unicode_font, n, y_text)
 
         y_text += parms.DIM_TEXT_TOP_MARGIN()

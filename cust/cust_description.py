@@ -3,10 +3,20 @@ import pandas as pd
 
 
 def do(pd_series, sheet_title, default):
+    description = str(pd_series[parms.COLUMN_DESCRIPTION()])
+
     if sheet_title == "Example":
-        return pd_series[parms.COLUMN_DESCRIPTION()]
+        return description
+    elif sheet_title == "Example2":
+        description = adopt_text(pd_series["Next Location"])
     else:
         return default
+
+    return description
+
+
+def adopt_text(text):
+    return str.encode(text).replace(b'\015', b'\n').decode(errors='strict')
 
 
 if __name__ == "__main__":
