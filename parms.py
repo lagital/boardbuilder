@@ -12,6 +12,7 @@ def MASK_ALL():               return "*"
 def COLUMN_TITLE():           return "Title"
 def COLUMN_DESCRIPTION():     return "Description"
 def COLUMN_COUNT():           return "Count"
+def COLUMN_IDT():             return "N"
 
 # directories
 DIR_OUTPUT                    = os.getcwd()

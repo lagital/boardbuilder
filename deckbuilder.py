@@ -118,18 +118,29 @@ def process_sheet(sheet, sheet_title):
     if parms.COLUMN_COUNT() not in sheet.keys():
         print("WARNING:", parms.COLUMN_COUNT(), "column not defined on sheet", sheet_title + ".",
               "Generating one copy for each card")
-        sheet["Count"] = pd.Series(1, index=sheet.index)
+        sheet[parms.COLUMN_COUNT()] = pd.Series(1, index=sheet.index)
+
+    if parms.COLUMN_IDT() not in sheet.keys():
+        print("WARNING:", parms.COLUMN_IDT(), "column not defined on sheet", sheet_title + ".",
+              "Ensure that you don't have cards with the same names or define unique identifier")
+        sheet[parms.COLUMN_IDT()] = pd.Series(None, index=sheet.index)
 
     for index, row in sheet.iterrows():
 
         card_title = cust_title.do(row, sheet_title, row[parms.COLUMN_TITLE()])
 
         if card_included(sheet_title, card_title):
+            if sheet_title == "Находки":
+                print(row["Next Location"])
             card_description = cust_description.do(row, sheet_title, row[parms.COLUMN_DESCRIPTION()])
             card_image = generate_card_image(card_title, card_description)
             card_count = row[parms.COLUMN_COUNT()]
+            card_idt   = row[parms.COLUMN_IDT()]
 
-            card = Card(card_title, card_description, card_image, card_count)
+            if sheet_title == "Находки":
+                print(card_description)
+
+            card = Card(card_title, card_description, card_image, card_count, card_idt)
             deck.append(card)
 
             print(card_count, '"' + card_title + '" cards have been generated.')
@@ -152,7 +163,6 @@ def generate_card_image(title, description):
     # draw description
     for p in str.split(description, "\p"):
         for n in str.split(p, "\n"):
-            print("splitted sentence", n)
             y_text = draw_lines(draw, unicode_font, n, y_text)
 
         y_text += parms.DIM_TEXT_TOP_MARGIN()
@@ -197,7 +207,12 @@ def save_sheet(sheet_title, deck):
         for j in range(card.count):
 
             # separate images
-            card_path = main_directory + "/" + card.title.replace(" ", "_") + "_" + str(j) + "." + parms.EXT_PNG()
+            if card.idt is None:
+                idt_suffix = ""
+            else:
+                idt_suffix = "_" + str(card.idt)
+
+            card_path = main_directory + "/" + card.title.replace(" ", "_") + idt_suffix + "_" + str(j) + "." + parms.EXT_PNG()
             card_paths.append(card_path)
             card.image.save(card_path, parms.EXT_PNG())
 
