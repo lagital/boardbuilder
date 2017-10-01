@@ -64,7 +64,9 @@ With PRINT = True the scrpit will always try to print generated data using defau
 def COLUMN_TITLE():           return "Title"
 def COLUMN_DESCRIPTION():     return "Description"
 def COLUMN_COUNT():           return "Count"
+def COLUMN_IDT():             return "N"
 ```
 By default the script searches for Title, Description and Count columns on each sheet. You can redefine column names using these parameters.
+IDT (identifier) column is used in case of cards with the same titles but different descriptions. In IDT column you define some unique identifier for each card so they will be saved and generated correctly.
 # Customization
 It is possible to customize card Title and Description generation using **cust/cust_title.py** and **cust/cust_description.py** files respectively.
